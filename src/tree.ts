@@ -12,7 +12,13 @@ export class Tree {
   constructor(shapes: Array<ShapeT>) {
     this.box = boxForShapes(shapes);
     const node = new Node(shapes);
-    node.split(0);
+    /**
+     * Splitting is currently disabled, as the implementation
+     * is causing hidden line removal to break. The scene
+     * seems to render correctly without it, so it's not
+     * entirely clear why it's needed yet.
+     */
+    // node.split(0);
     this.root = node;
   }
 
@@ -22,6 +28,8 @@ export class Tree {
     if (tmax < tmin || tmax <= 0) {
       return NoHit;
     }
+    
+    // console.log('intersecton in tree')
     return this.root.intersect(r, tmin, tmax);
   }
 }
@@ -94,12 +102,14 @@ export class Node {
 
   intersectShapes(r: Ray): Hit {
     let hit: Hit = NoHit;
+    // console.log(this.shapes);
     for (const shape of this.shapes) {
       let h = shape.intersect(r);
       if (h.t < hit.t) {
         hit = h;
       }
     }
+    // console.log("hit", hit);
     return hit;
   }
 
@@ -144,7 +154,7 @@ export class Node {
   }
 
   split(depth: number) {
-    if (this.shapes.length < 8) {
+    if (this.shapes.length < 1) {
       return;
     }
     let xs: Array<number> = new Array(this.shapes.length * 2);

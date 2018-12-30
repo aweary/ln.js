@@ -1,1 +1,2 @@
-import "./demos/skyscraper";
+// import "./demos/skyscraper";
+import "./demos/rotate"

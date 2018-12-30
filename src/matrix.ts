@@ -68,7 +68,7 @@ export class Matrix {
   }
 
   rotate(v: Vector, a: number): Matrix {
-    return createRotateMatrix(v, a).mul(this);
+    return rotate(v, a).mul(this);
   }
 
   frustrum(
@@ -381,7 +381,7 @@ export function createScaleMatrix(v: Vector): Matrix {
       0, 0, 0, 1);
 }
 
-export function createRotateMatrix(vs: Vector, a: number): Matrix {
+export function rotate(vs: Vector, a: number): Matrix {
   let v = vs.normalize();
   let s = Math.sin(a);
   let c = Math.cos(a);

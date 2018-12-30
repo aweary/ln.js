@@ -8,29 +8,20 @@ import { median } from "./math";
 export class Tree {
   box: Box;
   root: Node;
-
   constructor(shapes: Array<ShapeT>) {
     this.box = boxForShapes(shapes);
     const node = new Node(shapes);
-    /**
-     * Splitting is currently disabled, as the implementation
-     * is causing hidden line removal to break. The scene
-     * seems to render correctly without it, so it's not
-     * entirely clear why it's needed yet.
-     */
-    // node.split(0);
+    node.split(0);
     this.root = node;
   }
 
   intersect(r: Ray): Hit {
-    // ISSUE: tmax is always negative
     const [tmin, tmax] = this.box.intersect(r);
     if (tmax < tmin || tmax <= 0) {
       return NoHit;
     }
-    
-    // console.log('intersecton in tree')
-    return this.root.intersect(r, tmin, tmax);
+    let h = this.root.intersect(r, tmin, tmax);
+    return h;
   }
 }
 
@@ -54,24 +45,24 @@ export class Node {
     switch (this.axis) {
       case Axis.AxisNone:
         return this.intersectShapes(r);
-      case Axis.AxisX: {
+      case Axis.AxisX:
         tsplit = (this.point - r.origin.x) / r.direction.x;
         leftFirst =
           r.origin.x < this.point ||
-          (r.origin.x === this.point && r.direction.x <= 0);
-      }
-      case Axis.AxisY: {
+          (r.origin.x == this.point && r.direction.x <= 0);
+          break;
+      case Axis.AxisY:
         tsplit = (this.point - r.origin.y) / r.direction.y;
         leftFirst =
           r.origin.y < this.point ||
-          (r.origin.y === this.point && r.direction.y <= 0);
-      }
-      case Axis.AxisZ: {
+          (r.origin.y == this.point && r.direction.y <= 0);
+          break;
+      case Axis.AxisZ:
         tsplit = (this.point - r.origin.z) / r.direction.z;
         leftFirst =
           r.origin.z < this.point ||
-          (r.origin.z === this.point && r.direction.z <= 0);
-      }
+          (r.origin.z == this.point && r.direction.z <= 0);
+          break;
     }
     let first: Node;
     let second: Node;
@@ -87,10 +78,12 @@ export class Node {
     } else if (tsplit < tmin) {
       return second.intersect(r, tmin, tmax);
     } else {
+      // tsplit is not consistent with go src
       let h1 = first.intersect(r, tmin, tsplit);
       if (h1.t <= tsplit) {
         return h1;
       }
+      // This is being called more often than the go source??
       let h2 = second.intersect(r, tsplit, Math.min(tmax, h1.t));
       if (h1.t <= h2.t) {
         return h1;
@@ -102,14 +95,12 @@ export class Node {
 
   intersectShapes(r: Ray): Hit {
     let hit: Hit = NoHit;
-    // console.log(this.shapes);
     for (const shape of this.shapes) {
       let h = shape.intersect(r);
       if (h.t < hit.t) {
         hit = h;
       }
     }
-    // console.log("hit", hit);
     return hit;
   }
 
@@ -138,8 +129,8 @@ export class Node {
     axis: Axis,
     point: number
   ): [Array<ShapeT>, Array<ShapeT>] {
-    let left: Array<ShapeT> = new Array(size);
-    let right: Array<ShapeT> = new Array(size);
+    let left: Array<ShapeT> = [];
+    let right: Array<ShapeT> = [];
     for (const shape of this.shapes) {
       const box = shape.boundingBox();
       const [l, r] = box.partition(axis, point);
@@ -154,27 +145,32 @@ export class Node {
   }
 
   split(depth: number) {
-    if (this.shapes.length < 1) {
-      return;
-    }
-    let xs: Array<number> = new Array(this.shapes.length * 2);
-    let ys: Array<number> = new Array(this.shapes.length * 2);
-    let zs: Array<number> = new Array(this.shapes.length * 2);
+    // if (this.shapes.length < 8) {
+    //   return;
+    // }
+    let xs: Float64Array = new Float64Array(this.shapes.length * 2);
+    let ys: Float64Array = new Float64Array(this.shapes.length * 2);
+    let zs: Float64Array = new Float64Array(this.shapes.length * 2);
+    let xi = 0;
+    let yi = 0;
+    let zi = 0;
     for (const shape of this.shapes) {
       const box = shape.boundingBox();
-      xs.push(box.min.x);
-      xs.push(box.max.x);
-      ys.push(box.min.y);
-      ys.push(box.max.y);
-      zs.push(box.min.z);
-      zs.push(box.max.z);
+      xs[xi++] = box.min.x;
+      xs[xi++] = box.max.x;
+      ys[yi++] = box.min.y;
+      ys[yi++] = box.max.y;
+      zs[zi++] = box.min.z;
+      zs[zi++] = box.max.z;
     }
-    xs.sort((a, b) => a - b);
-    ys.sort((a, b) => a - b);
-    zs.sort((a, b) => a - b);
+    xs.sort();
+    ys.sort();
+    zs.sort();
     let mx = median(xs);
     let my = median(ys);
     let mz = median(zs);
+    // TODO why does this prevent the line issue?
+    // let best = (this.shapes.length * 0.65);
     let best = (this.shapes.length * 0.85) | 0;
     let bestAxis = Axis.AxisNone;
     let bestPoint = 0.0;

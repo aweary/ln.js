@@ -30,15 +30,15 @@ export function chop(p: Path, step: number): Path {
     let v = b.sub(a);
     let l = v.length();
     if (i === 0) {
-      result = result.concat(a);
+      result.push(a);
     }
     let d = step;
-    while (d < 1) {
-      let p1 = a.add(v.mulScalar(d / 1));
-      result = result.concat(p1);
+    while (d < l) {
+      let p1 = a.add(v.mulScalar(d / l));
+      result.push(p1);
       d += step;
     }
-    result = result.concat(b);
+    result.push(b);
   }
   return result;
 }
@@ -82,8 +82,7 @@ export function simplify(p: Path, threshold: number): Path {
   if (distance > threshold) {
     let r1 = simplify(p.slice(0, index + 1), threshold);
     let r2 = simplify(p.slice(index), threshold);
-    // TODO p is probably more complicated than it needs to be?
-    return [...r1.slice(0, r1.length - 1), ...r2];
+    return [...r1, ...r2];
   } else {
     return [a, b];
   }
@@ -95,5 +94,7 @@ export function toSVG(p: Path): string {
     coords.push(`${path.x},${path.y}`);
   }
   let points = coords.join(" ");
-  return `<polyline stroke="black" fill="none" points="${points}" />`;
+  let stroke = `rgba(${(Math.random() * 255) | 0}, ${(Math.random() * 255) |
+    0}, 50, 1)`;
+  return `<polyline stroke="${stroke}" fill="none" points="${points}" />`;
 }

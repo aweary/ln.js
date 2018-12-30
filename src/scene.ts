@@ -12,10 +12,7 @@ import {
   createTranslateMatrix
 } from "./matrix";
 import { ClipFilter } from "./filter";
-import { format } from "url";
 
-// @ts-ignore
-window.Paths = Paths;
 
 export default class Scene {
   shapes: Array<ShapeT>;
@@ -42,11 +39,10 @@ export default class Scene {
   }
 
   visible(eye: Vector, point: Vector): boolean {
-    // TODO nothing is coming back as invisible
     const v = eye.sub(point);
     const r = new Ray(point, v.normalize());
     const hit = this.intersect(r);
-    return hit.t > v.length();
+    return hit.t >= v.length();
   }
 
   paths(): PathsT {
@@ -88,6 +84,7 @@ export default class Scene {
       paths = Paths.chop(paths, step);
     }
     let f = new ClipFilter(matrix, eye, this);
+    // We're always filtering the same paths?
     paths = Paths.filterPaths(paths, f);
     if (step > 0) {
       paths = Paths.simplify(paths, 1e-6);

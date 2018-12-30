@@ -9,10 +9,12 @@ export default class Vector {
     this.z = z;
   }
 
+  toString() {
+    return `{x: ${this.x}, y: ${this.y}, z: ${this.z}}`
+  }
+
   length(): number {
-    let { x, y, z } = this;
-    let dot = x * x + y * y + z * z;
-    return Math.sqrt(dot);
+    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
   }
 
   distance(b: Vector): number {

@@ -409,11 +409,10 @@ export function frustrum(
   let t4 = f - n;
   // prettier-ignore
   return new Matrix(
-    t1 / t2, 0, (r + l) / t2, 0,
-    0, t1 / t3, (t + b) / t3, 0,
-	0, 0, (-f - n) / t4, (-t1 * f) / t4,
-    0, 0, -1, 0
-  )
+		t1 / t2, 0, (r + l) / t2, 0,
+		0, t1 / t3, (t + b) / t3, 0,
+		0, 0, (-f - n) / t4, (-t1 * f) / t4,
+		0, 0, -1, 0)
 }
 
 export function orthographic(

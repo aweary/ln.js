@@ -46,14 +46,12 @@ export class Box {
   }
 
   intersect(r: Ray): [number, number] {
-    let { min, max } = this;
-    let { origin, direction } = r;
-    let x1 = (min.x - origin.x) / direction.x;
-    let y1 = (min.y - origin.y) / direction.y;
-    let z1 = (min.z - origin.z) / direction.z;
-    let x2 = (max.x - origin.x) / direction.x;
-    let y2 = (max.y - origin.y) / direction.y;
-    let z2 = (max.z - origin.z) / direction.z;
+    let x1 = (this.min.x - r.origin.x) / r.direction.x;
+    let y1 = (this.min.y - r.origin.y) / r.direction.y;
+    let z1 = (this.min.z - r.origin.z) / r.direction.z;
+    let x2 = (this.max.x - r.origin.x) / r.direction.x;
+    let y2 = (this.max.y - r.origin.y) / r.direction.y;
+    let z2 = (this.max.z - r.origin.z) / r.direction.z;
     if (x1 > x2) {
       [x1, x2] = [x2, x1];
     }

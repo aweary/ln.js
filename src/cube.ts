@@ -37,11 +37,11 @@ export default class Cube implements ShapeT {
   }
 
   intersect(r: Ray): Hit {
-    let n = this.min.sub(r.origin).div(r.direction);
     let f = this.max.sub(r.origin).div(r.direction);
+    let n = this.min.sub(r.origin).div(r.direction);
     [n, f] = [n.min(f), n.max(f)];
-    let t0 = Math.max(n.x, n.y, n.z);
-    let t1 = Math.min(f.x, f.y, f.z);
+    let t0 = Math.max(Math.max(n.x, n.y), n.z);
+    let t1 = Math.min(Math.min(f.x, f.y), f.z);
     if (t0 < 1e-3 && t1 > 1e-3) {
       return new Hit(this, t1);
     }

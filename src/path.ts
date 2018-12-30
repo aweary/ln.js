@@ -94,7 +94,5 @@ export function toSVG(p: Path): string {
     coords.push(`${path.x},${path.y}`);
   }
   let points = coords.join(" ");
-  let stroke = `rgba(${(Math.random() * 255) | 0}, ${(Math.random() * 255) |
-    0}, 50, 1)`;
-  return `<polyline stroke="${stroke}" fill="none" points="${points}" />`;
+  return `<polyline stroke="black" fill="none" points="${points}" />`;
 }

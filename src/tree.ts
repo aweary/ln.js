@@ -78,12 +78,10 @@ export class Node {
     } else if (tsplit < tmin) {
       return second.intersect(r, tmin, tmax);
     } else {
-      // tsplit is not consistent with go src
       let h1 = first.intersect(r, tmin, tsplit);
       if (h1.t <= tsplit) {
         return h1;
       }
-      // This is being called more often than the go source??
       let h2 = second.intersect(r, tsplit, Math.min(tmax, h1.t));
       if (h1.t <= h2.t) {
         return h1;
@@ -145,9 +143,9 @@ export class Node {
   }
 
   split(depth: number) {
-    // if (this.shapes.length < 8) {
-    //   return;
-    // }
+    if (this.shapes.length < 8) {
+      return;
+    }
     let xs: Float64Array = new Float64Array(this.shapes.length * 2);
     let ys: Float64Array = new Float64Array(this.shapes.length * 2);
     let zs: Float64Array = new Float64Array(this.shapes.length * 2);
@@ -169,8 +167,6 @@ export class Node {
     let mx = median(xs);
     let my = median(ys);
     let mz = median(zs);
-    // TODO why does this prevent the line issue?
-    // let best = (this.shapes.length * 0.65);
     let best = (this.shapes.length * 0.85) | 0;
     let bestAxis = Axis.AxisNone;
     let bestPoint = 0.0;

@@ -1,6 +1,6 @@
 {
   "name": "@lnjs/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A JavaScript port of the 3D line rendering engine, ln",
   "main": "lib/index.js",
   "module": "es/index.js",

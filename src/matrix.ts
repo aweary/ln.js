@@ -41,26 +41,26 @@ export class Matrix {
     x32?: number,
     x33?: number
   ) {
-    this.x00 = x00;
-    this.x01 = x01;
-    this.x02 = x02;
-    this.x03 = x03;
-    this.x10 = x10;
-    this.x11 = x11;
-    this.x12 = x12;
-    this.x13 = x13;
-    this.x20 = x20;
-    this.x21 = x21;
-    this.x22 = x22;
-    this.x23 = x23;
-    this.x30 = x30;
-    this.x31 = x31;
-    this.x32 = x32;
-    this.x33 = x33;
+    this.x00 = x00 || 0;
+    this.x01 = x01 || 0;
+    this.x02 = x02 || 0;
+    this.x03 = x03 || 0;
+    this.x10 = x10 || 0;
+    this.x11 = x11 || 0;
+    this.x12 = x12 || 0;
+    this.x13 = x13 || 0;
+    this.x20 = x20 || 0;
+    this.x21 = x21 || 0;
+    this.x22 = x22 || 0;
+    this.x23 = x23 || 0;
+    this.x30 = x30 || 0;
+    this.x31 = x31 || 0;
+    this.x32 = x32 || 0;
+    this.x33 = x33 || 0;
   }
 
   translate(v: Vector): Matrix {
-    return createTranslateMatrix(v).mul(this);
+    return translate(v).mul(this);
   }
 
   scale(v: Vector): Matrix {
@@ -359,11 +359,11 @@ export class Matrix {
   }
 }
 
-export function createIdentityMatrix(): Matrix {
+export function identity(): Matrix {
   return new Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
-export function createTranslateMatrix(v: Vector): Matrix {
+export function translate(v: Vector): Matrix {
   // prettier-ignore
   return new Matrix(
       1, 0, 0, v.x,

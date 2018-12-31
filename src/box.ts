@@ -2,6 +2,7 @@ import Ray from "./ray";
 import { ShapeT } from "./shape";
 import Vector from "./vector";
 import { Axis } from "./axis";
+import Triangle from "./triangle"
 
 export type PointPair = [number, number];
 
@@ -84,6 +85,7 @@ export class Box {
         return [left, right];
       }
     }
+    throw new Error(`Partitioning NoAxis`)
   }
 }
 

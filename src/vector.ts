@@ -1,9 +1,9 @@
 // import {Vector3} from "three";
+import { Hashable } from "./set";
 
 // export default Vector3;
 
-
-export default class Vector {
+export default class Vector implements Hashable {
   x: number;
   y: number;
   z: number;
@@ -14,8 +14,13 @@ export default class Vector {
     this.z = z;
   }
 
+  hashCode(): string {
+    let { x, y, z } = this;
+    return `${x}#${y}#${z}`;
+  }
+
   toString() {
-    return `{x: ${this.x}, y: ${this.y}, z: ${this.z}}`
+    return `{x: ${this.x}, y: ${this.y}, z: ${this.z}}`;
   }
 
   length(): number {

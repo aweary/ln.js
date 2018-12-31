@@ -9,18 +9,17 @@ import {
   lookAt,
   Matrix,
   createScaleMatrix,
-  createTranslateMatrix
+  translate
 } from "./matrix";
 import { ClipFilter } from "./filter";
 
-
 export default class Scene {
   shapes: Array<ShapeT>;
-  tree: null | Tree;
+  tree: Tree;
 
   constructor() {
     this.shapes = [];
-    this.tree = null;
+    this.tree = new Tree(this.shapes);
   }
 
   compile() {
@@ -89,8 +88,7 @@ export default class Scene {
     if (step > 0) {
       paths = Paths.simplify(paths, 1e-6);
     }
-    console.log(paths.length)
-    let matrix2 = createTranslateMatrix(new Vector(1, 1, 0)).scale(
+    let matrix2 = translate(new Vector(1, 1, 0)).scale(
       new Vector(width / 2, height / 2, 0)
     );
     return Paths.transform(paths, matrix2);

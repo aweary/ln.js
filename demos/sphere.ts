@@ -39,9 +39,10 @@ function render() {
     zfar,
     step
   );
+  console.log(paths);
   // save the paths as an svg
-  document.body.innerHTML = ln.toSVG(paths, width, height);
-  requestAnimationFrame(render)
+  document.body.innerHTML = `<div style="border: 1px solid red">${ln.toSVG(paths, width, height)}</div>`;
+  // requestAnimationFrame(render)
 }
 
 render()

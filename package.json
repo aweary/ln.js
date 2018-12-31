@@ -27,6 +27,7 @@
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-typescript": "^1.0.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "wavefront-obj-parser": "^2.0.1"
   }
 }

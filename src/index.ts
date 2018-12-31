@@ -7,3 +7,4 @@ export { toSVG } from "./paths";
 export { lerp } from "./math";
 export { TransformedShape } from "./shape";
 export { Sphere, OutlineSphere } from "./sphere";
+export { loadOBJ } from "./obj";

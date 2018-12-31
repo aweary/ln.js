@@ -29,14 +29,14 @@ export class Node {
   axis: Axis;
   point: number;
   shapes: Array<ShapeT>;
-  left: Node;
-  right: Node;
+  left: null | Node;
+  right: null | Node;
   constructor(shapes: Array<ShapeT>) {
     this.axis = Axis.AxisNone;
     this.point = 0;
     this.shapes = shapes;
-    left: null;
-    right: null;
+    this.left = null;
+    this.right = null;
   }
 
   intersect(r: Ray, tmin: number, tmax: number): Hit {
@@ -50,28 +50,27 @@ export class Node {
         leftFirst =
           r.origin.x < this.point ||
           (r.origin.x == this.point && r.direction.x <= 0);
-          break;
+        break;
       case Axis.AxisY:
         tsplit = (this.point - r.origin.y) / r.direction.y;
         leftFirst =
           r.origin.y < this.point ||
           (r.origin.y == this.point && r.direction.y <= 0);
-          break;
+        break;
       case Axis.AxisZ:
         tsplit = (this.point - r.origin.z) / r.direction.z;
         leftFirst =
           r.origin.z < this.point ||
           (r.origin.z == this.point && r.direction.z <= 0);
-          break;
+        break;
+      default: {
+        throw new Error("Unknown axis");
+      }
     }
-    let first: Node;
-    let second: Node;
-    if (leftFirst) {
-      first = this.left;
-      second = this.right;
-    } else {
-      first = this.right;
-      second = this.left;
+    let first = leftFirst ? this.left : this.right;
+    let second = leftFirst ? this.right : this.left;
+    if (first === null || second === null) {
+      throw new Error("Node.intersect(...): Unexpected null left/right nodes");
     }
     if (tsplit > tmax || tsplit <= 0) {
       return first.intersect(r, tmin, tmax);
@@ -198,6 +197,6 @@ export class Node {
     this.right = new Node(r);
     this.left.split(depth + 1);
     this.right.split(depth + 1);
-    this.shapes = null;
+    // this.shapes = null;
   }
 }

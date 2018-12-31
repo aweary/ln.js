@@ -22,6 +22,10 @@ export function median(items: Float64Array): number {
   return (a + b) / 2;
 }
 
-export function lerp(min: number, max: number, t: number) : number {
+export function lerp(min: number, max: number, t: number): number {
   return min * (1 - t) + max * t;
+}
+
+export function radians(degrees: number): number {
+  return (degrees * Math.PI) / 180;
 }

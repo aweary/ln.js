@@ -89,6 +89,7 @@ export default class Scene {
     if (step > 0) {
       paths = Paths.simplify(paths, 1e-6);
     }
+    console.log(paths.length)
     let matrix2 = createTranslateMatrix(new Vector(1, 1, 0)).scale(
       new Vector(width / 2, height / 2, 0)
     );

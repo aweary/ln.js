@@ -1,3 +1,8 @@
+// import {Vector3} from "three";
+
+// export default Vector3;
+
+
 export default class Vector {
   x: number;
   y: number;
@@ -77,7 +82,7 @@ export default class Vector {
     return new Vector(x - b, y - b, z - b);
   }
 
-  mulScalar(b: number): Vector {
+  multiplyScalar(b: number): Vector {
     let { x, y, z } = this;
     return new Vector(x * b, y * b, z * b);
   }
@@ -130,6 +135,6 @@ export default class Vector {
     if (t > 1) {
       return this.distance(w);
     }
-    return v.add(w.sub(v).mulScalar(t)).distance(this);
+    return v.add(w.sub(v).multiplyScalar(t)).distance(this);
   }
 }

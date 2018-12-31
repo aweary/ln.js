@@ -34,7 +34,7 @@ export function chop(p: Path, step: number): Path {
     }
     let d = step;
     while (d < l) {
-      let p1 = a.add(v.mulScalar(d / l));
+      let p1 = a.add(v.multiplyScalar(d / l));
       result.push(p1);
       d += step;
     }

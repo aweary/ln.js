@@ -1,10 +1,12 @@
 {
-  "name": "ln",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "ln.js",
+  "version": "0.1.0",
+  "description": "A JavaScript port of the 3D line rendering engine, ln",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "tsc src/index.ts --declaration --outDir lib"
   },
   "author": "",
   "license": "ISC",

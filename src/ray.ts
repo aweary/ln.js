@@ -15,6 +15,6 @@ export default class Ray {
   }
 
   position(t: number): Vector {
-    return this.origin.add(this.direction.mulScalar(t));
+    return this.origin.add(this.direction.multiplyScalar(t));
   }
 }

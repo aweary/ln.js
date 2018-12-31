@@ -1,0 +1,12 @@
+import Vector from "./vector";
+import { Box } from "./box";
+import { Matrix } from "./matrix";
+import { FilterT } from "./filter";
+import { Paths } from "./paths";
+export declare type Path = Array<Vector>;
+export declare function boundingBox(p: Path): Box;
+export declare function transform(p: Path, matrix: Matrix): Path;
+export declare function chop(p: Path, step: number): Path;
+export declare function filterPaths(p: Path, f: FilterT): Paths;
+export declare function simplify(p: Path, threshold: number): Path;
+export declare function toSVG(p: Path): string;

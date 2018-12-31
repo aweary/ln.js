@@ -35,7 +35,7 @@ function parseData(data: string) {
     let scene = new ln.Scene();
     rotate += 0.01;
     scene.add(
-      new ln.TransformedShape(mesh, ln.rotate(new ln.Vector(-1, -0.5, 0), rotate))
+      new ln.TransformedShape(mesh, ln.rotate(new ln.Vector(-1, 1, 0), rotate))
     );
     let paths = scene.render(
       eye,

@@ -1,4 +1,6 @@
 .cache
+es
+umd
 lib
 dist
 node_modules

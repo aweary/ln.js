@@ -1,21 +1,32 @@
 {
-  "name": "ln.js",
-  "version": "0.1.0",
+  "name": "@lnjs/core",
+  "version": "0.0.1",
   "description": "A JavaScript port of the 3D line rendering engine, ln",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "ln",
+    "line rendering",
+    "3d",
+    "hidden line",
+    "svg"
+  ],
   "scripts": {
     "start": "parcel index.html",
-    "build": "tsc src/index.ts --declaration --outDir lib"
+    "build": "npm run build:cjs && npm run build:es",
+    "build:cjs": "tsc src/index.ts --declaration --outDir lib",
+    "build:es": "tsc src/index.ts --declaration --outDir es --target ES2015 --module es2015",
+    "prepublish": "npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "parcel-bundler": "^1.11.0",
+    "rollup": "^1.0.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-typescript": "^1.0.0",
     "typescript": "^3.2.2"
-  },
-  "dependencies": {
-    "@types/three": "^0.93.14",
-    "three": "^0.99.0"
   }
 }

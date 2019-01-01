@@ -1,5 +1,5 @@
 // @ts-ignore
-import obj from "./suzanne.obj";
+import obj from "./bunny.obj";
 import * as ln from "../src";
 import { isContext } from "vm";
 
@@ -57,7 +57,7 @@ function parseData(data: string) {
       ctx.lineWidth = 1;
       ctx.stroke();
     });
-    requestAnimationFrame(render);
+    // requestAnimationFrame(render);
   }
   render()
 }

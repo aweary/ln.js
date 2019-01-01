@@ -64,7 +64,7 @@ export class Matrix {
   }
 
   scale(v: Vector): Matrix {
-    return createScaleMatrix(v).mul(this);
+    return scale(v).mul(this);
   }
 
   rotate(v: Vector, a: number): Matrix {
@@ -372,7 +372,7 @@ export function translate(v: Vector): Matrix {
       0, 0, 0, 1);
 }
 
-export function createScaleMatrix(v: Vector): Matrix {
+export function scale(v: Vector): Matrix {
   // prettier-ignore
   return new Matrix(
       v.x, 0, 0, 0,

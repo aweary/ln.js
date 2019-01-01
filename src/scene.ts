@@ -5,12 +5,7 @@ import Hit from "./hit";
 import Vector from "./vector";
 import { Paths as PathsT } from "./paths";
 import * as Paths from "./paths";
-import {
-  lookAt,
-  Matrix,
-  createScaleMatrix,
-  translate
-} from "./matrix";
+import { lookAt, Matrix, translate } from "./matrix";
 import { ClipFilter } from "./filter";
 
 export default class Scene {

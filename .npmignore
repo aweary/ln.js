@@ -3,3 +3,4 @@ demo.ts
 demos
 .cache
 dist
+.DS_Store

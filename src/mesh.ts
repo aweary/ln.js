@@ -107,28 +107,28 @@ export default class Mesh implements ShapeT {
     return new Error();
   }
 
-  // voxelize(size: number): Cube[] {
-  //   let z1 = this.box.min.z;
-  //   let z2 = this.box.max.z;
-  //   let set: HashSet<Vector> = new HashSet();
-  //   for (let z = z1; z <= z2; z += size) {
-  //     let plane = new Plane(new Vector(0, 0, z), new Vector(0, 0, 1));
-  //     let paths = plane.intersectMesh(this);
-  //     for (const path of paths) {
-  //       for (const v of path) {
-  //         let x = Math.floor(v.x / size + 0.5) * size;
-  //         let y = Math.floor(v.y / size + 0.5) * size;
-  //         let z = Math.floor(v.z / size + 0.5) * size;
-  //         const vec = new Vector(x, y, z);
-  //         set.add(vec);
-  //       }
-  //     }
-  //   }
-  //   let result: Cube[] = [];
-  //   set.forEach(v => {
-  //     let cube = new Cube(v.subScalar(size / 2), v.addScalar(size / 2));
-  //     result.push(cube);
-  //   });
-  //   return result;
-  // }
+  voxelize(size: number): Cube[] {
+    let z1 = this.box.min.z;
+    let z2 = this.box.max.z;
+    let set: HashSet<Vector> = new HashSet();
+    for (let z = z1; z <= z2; z += size) {
+      let plane = new Plane(new Vector(0, 0, z), new Vector(0, 0, 1));
+      let paths = plane.intersectMesh(this);
+      for (const path of paths) {
+        for (const v of path) {
+          let x = Math.floor(v.x / size + 0.5) * size;
+          let y = Math.floor(v.y / size + 0.5) * size;
+          let z = Math.floor(v.z / size + 0.5) * size;
+          const vec = new Vector(x, y, z);
+          set.add(vec);
+        }
+      }
+    }
+    let result: Cube[] = [];
+    set.forEach(v => {
+      let cube = new Cube(v.subScalar(size / 2), v.addScalar(size / 2));
+      result.push(cube);
+    });
+    return result;
+  }
 }

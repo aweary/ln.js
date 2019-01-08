@@ -1,7 +1,4 @@
-// import {Vector3} from "three";
 import { Hashable } from "./set";
-
-// export default Vector3;
 
 export default class Vector implements Hashable {
   x: number;

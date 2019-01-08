@@ -1,7 +1,7 @@
 import { Box } from "./box";
 import Vector from "./vector";
 import Ray from "./ray";
-import Hit from "./hit";
+import Hit, { NoHit } from "./hit";
 import { Paths as PathsT } from "./paths";
 import * as Paths from "./paths";
 import { Matrix } from "./matrix";
@@ -43,5 +43,28 @@ export class TransformedShape implements ShapeT {
   paths(): PathsT {
     let paths = this.shape.paths();
     return Paths.transform(paths, this.matrix);
+  }
+}
+
+export class EmptyShape implements ShapeT {
+  compile() {
+    // noop
+  }
+  boundingBox() {
+    let min = new Vector(0, 0, 0);
+    let max = new Vector(0, 0, 0);
+    return new Box(min, max);
+  }
+
+  contains(v: Vector, f: number): boolean {
+    return false;
+  }
+
+  intersect(r: Ray): Hit {
+    return NoHit;
+  }
+
+  paths() {
+    return [];
   }
 }

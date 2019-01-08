@@ -9,4 +9,4 @@ export { TransformedShape } from "./shape";
 export { Sphere, OutlineSphere } from "./sphere";
 export { loadOBJ } from "./obj";
 export { BooleanShape, CSGOperation } from "./csg";
-export {Cylinder} from "./cylinder"
+export {Cylinder, OutlineCylinder} from "./cylinder"

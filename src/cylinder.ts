@@ -76,3 +76,55 @@ export class Cylinder implements ShapeT {
     return result;
   }
 }
+
+export class OutlineCylinder extends Cylinder {
+  eye: Vector;
+  up: Vector;
+  constructor(eye: Vector, up: Vector, radius: number, z0: number, z1: number) {
+    super(radius, z0, z1);
+    this.eye = eye;
+    this.up = up;
+  }
+
+  paths(): Paths {
+    let center = new Vector(0, 0, this.z0);
+    let hyp = center.sub(this.eye).length();
+    let opp = this.radius;
+    let theta = Math.asin(opp / hyp);
+    let adj = opp / Math.tan(theta);
+    let d = Math.cos(theta) * adj;
+    let w = center.sub(this.eye).normalize();
+    let u = w.cross(this.up).normalize();
+    let c0 = this.eye.add(w.multiplyScalar(d));
+    let a0 = c0.add(u.multiplyScalar(this.radius * 1.01));
+    let b0 = c0.add(u.multiplyScalar(-this.radius * 1.01));
+
+    center = new Vector(0, 0, this.z1);
+    hyp = center.sub(this.eye).length();
+    opp = this.radius;
+    theta = Math.asin(opp / hyp);
+    adj = opp / Math.tan(theta);
+    d = Math.cos(theta) * adj;
+    w = center.sub(this.eye).normalize();
+    u = w.cross(this.up).normalize();
+    let c1 = this.eye.add(w.multiplyScalar(d));
+    let a1 = c1.add(u.multiplyScalar(this.radius * 1.01));
+    let b1 = c1.add(u.multiplyScalar(-this.radius * 1.01));
+    let p0: Path = [];
+    let p1: Path = [];
+    for (let a = 0; a < 360; a++) {
+      let x = this.radius * Math.cos(radians(a));
+      let y = this.radius * Math.sin(radians(a));
+      p0.push(new Vector(x, y, this.z0));
+      p1.push(new Vector(x, y, this.z1));
+    }
+    return [
+      p0,
+      p1,
+      [new Vector(a0.x, a0.y, this.z0), new Vector(a1.x, a1.y, this.z1)],
+      [new Vector(b0.x, b0.y, this.z0), new Vector(b1.x, b1.y, this.z1)]
+    ];
+  }
+}
+
+// TODO NewTransformedOutlineCycliner

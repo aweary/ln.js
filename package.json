@@ -17,6 +17,7 @@
     "build": "npm run build:cjs && npm run build:es",
     "build:cjs": "tsc src/index.ts --declaration --outDir lib",
     "build:es": "tsc src/index.ts --declaration --outDir es --target ES2015 --module es2015",
+    "docs": "typedoc --out docs ./src --mode file && surge docs --domain lnjs.surge.sh",
     "prepublish": "npm run build"
   },
   "author": "",
@@ -27,6 +28,7 @@
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-typescript": "^1.0.0",
+    "typedoc": "^0.14.0",
     "typescript": "^3.2.2",
     "wavefront-obj-parser": "^2.0.1"
   }

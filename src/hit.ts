@@ -1,10 +1,10 @@
 import { ShapeT } from "./shape";
 
 export default class Hit {
-  shape: ShapeT;
+  shape: null | ShapeT;
   t: number;
 
-  constructor(shape: ShapeT, t: number) {
+  constructor(shape: null | ShapeT, t: number) {
     this.shape = shape;
     this.t = t;
   }

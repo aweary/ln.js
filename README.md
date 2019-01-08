@@ -7,11 +7,14 @@ A JavaScript port of the 3D line rendering engine [`ln`](https://github.com/fogl
 The package is published as `@lnjs/core`
 
 ```sh
-yarn add @lnjs/core
+npm install @lnjs/core
 ```
 
 ```js
+// If using ES6 Modules...
 import * as ln from "@lnjs/core";
+// Otherwise...
+const ln = require("@lnjs/core");
 ```
 
 # API

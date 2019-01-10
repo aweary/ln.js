@@ -91,7 +91,7 @@ export function simplify(p: Path, threshold: number): Path {
 export function toSVG(p: Path): string {
   var coords: string[] = [];
   for (const path of p) {
-    coords.push(`${path.x},${path.y}`);
+    coords.push(`${ Math.round(path.x * 100) / 100 },${ Math.round(path.y * 100) / 100 }`);
   }
   let points = coords.join(" ");
   return `<polyline stroke="black" fill="none" points="${points}" />`;

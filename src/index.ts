@@ -11,7 +11,6 @@ export * from "./math";
 export * from "./matrix";
 export { default as Mesh } from "./mesh";
 export * from "./obj";
-export * from "./path";
 export * from "./paths";
 export { default as Plane } from "./plane";
 export { default as Ray } from "./ray";
